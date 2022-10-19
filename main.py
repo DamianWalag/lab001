@@ -3,7 +3,7 @@ from ascii_graph.colordata import vcolor
 from ascii_graph import colors
 import argparse
 from ast import arg
-
+#testuje
 #obsluga argumentow 
 parser = argparse.ArgumentParser()
 parser.add_argument('file_name')
