@@ -1,4 +1,3 @@
-from http.client import FORBIDDEN
 from ascii_graph import Pyasciigraph
 from ascii_graph.colordata import vcolor
 from ascii_graph import colors
