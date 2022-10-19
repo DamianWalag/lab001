@@ -3,13 +3,12 @@ from ascii_graph.colordata import vcolor
 from ascii_graph import colors
 import argparse
 from ast import arg
-#testuje
 #obsluga argumentow 
 parser = argparse.ArgumentParser()
 parser.add_argument('file_name')
-parser.add_argument('-w', '--number_of_words', default=10)
-parser.add_argument('-l', '--number_of_letters', default=0)
-parser.add_argument('-i', '--ignore_words', nargs = '*', default=[])
+parser.add_argument('-w', '--number_of_words', default = 10)
+parser.add_argument('-l', '--number_of_letters', default = 0)
+parser.add_argument('-i', '--ignore_words', nargs = '*', default = [])
 parser.add_argument('-c', '--contain_string', default = '')
 
 
@@ -34,6 +33,7 @@ with open(file_name, 'r',encoding="utf8") as f:
             word = word.replace('!', '')
             word = word.replace('"', '')
             word = word.replace(';', '')
+            word = word.replace(':', '')
             word = word.replace('(', '')
             word = word.replace(')', '')
             
@@ -53,11 +53,13 @@ with open(file_name, 'r',encoding="utf8") as f:
             else:
                 slownik[word] = 1
 
-hist = dict(sorted(slownik.items(),key=lambda x:x[1],reverse=True))
+#sortujemy slowa od najczesciej wystepujacych
+hist = dict(sorted(slownik.items(), key=lambda x:x[1], reverse=True))
 
-
+#przycinamy do wymaganej liczby slow
 final_hist = (list(hist.items())[:num_of_words])
 
+#rysujemy histogram
 graph = Pyasciigraph()
 pattern = [colors.Gre, colors.Pur, colors.Yel, colors.Red, colors.Cya]
 data = vcolor(final_hist, pattern)
