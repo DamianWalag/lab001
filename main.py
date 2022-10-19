@@ -38,26 +38,27 @@ with open(file_name, 'r', encoding="utf8") as f:
             word = word.replace('(', '')
             word = word.replace(')', '')
 
-            # nie zapisujemy slow ktore sa za krotkie LUB sa slowami podanymi jako zakazane
+            # nie zapisujemy slow ktore sa za krotkie
             if len(word) < num_of_letters:
                 continue
-            
-            # nie rozumiem czemu to nie dziala 
-            # if any(word == forbidden for forbidden in ignored_words):
-            #    continue
-            
+
             # pozbycie sie wielkich liter
             word = word.lower()
+
+            # nie zapisujemy slow zakazanych
+            if any(word == forbidden for forbidden in ignored_words):
+                continue
+
             # sprawdzamy czy znalezione slowo zawiera podany ciag znakow
             if not (contains in word):
                 continue
+
             # zliczanie slow w slowniku (jesli slowo nie wystepuje dopisujemy je z wartoscia 1)
             if word in slownik:
                 slownik[word] += 1
             else:
-                if not(any(word == forbidden for forbidden in ignored_words)): #tutaj smiga, ale jak probowalem ifa z continue to slowo wykluczone nadal sie przesligiwalo ale w mniejszej liczbie wystapien.
-                    slownik[word] = 1
-                
+                slownik[word] = 1
+
 
 # sortujemy slowa od najczesciej wystepujacych
 hist = dict(sorted(slownik.items(), key=lambda x: x[1], reverse=True))
